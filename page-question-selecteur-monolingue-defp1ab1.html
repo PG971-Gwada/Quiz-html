@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            font-size: 14pt;
+        }
+
+        /* Taille du sélecteur et de la police */
+        select {
+            padding: 8px 0px;
+        }
+
+        select option {
+            font-size: 13pt;
+        }    </style>
+
+    <!-- Script pour récupérer la réponse -->
+    <script>
+        function sendResult(point, element, messageSuccess, messageFailure) {
+            /* Disactiver le selecteur pour empecher plusieurs réponses */
+            document.getElementById(element).disabled = true;
+            if (point === "0") {
+                document.getElementById("result-text").innerText = messageFailure;
+            } else {
+                document.getElementById("result-text").innerText = messageSuccess;
+            }
+            /* Cette ligne permet de passer le nombre de points à l'application */
+            Vikazimut.postMessage(point);
+        }
+    </script>
+</head>
+
+<body>
+<!-- Le corps de la page -->
+
+<h2>balise 1</h2>
+<p><img src="https://imgur.com/4qfBRfv.jpg"></p>
+<p>Balise 1</p>
+
+<h2>Question</h2>
+<p>Quelle est la définition du poste&nbsp;?</p>
+<!-- 3 solutions possibles; la 2e est la bonne réponse-->
+<select id="selection-fr" onchange="if (this.selectedIndex) sendResult(this.value, 'selection-fr', 'Bravo', 'Faux');">
+    <option value="-1">Choisissez une réponse</option>
+    <option value="0">Construction</option>
+    <option value="1">Arbre remarquable</option>
+    <option value="0">Mur</option>
+</select>
+<div id="result-text" style="color: red"></div>
+
+</body>
+</html>
